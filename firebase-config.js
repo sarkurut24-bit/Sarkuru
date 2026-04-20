@@ -2,8 +2,15 @@
 // ============================================
 // IMPORTANT: Replace these values with your actual Firebase project credentials
 // Get these from: https://console.firebase.google.com/
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-const FIREBASE_CONFIG = {
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
   apiKey: "AIzaSyA36BIWpgVHavKSI-ecg83Md36AuJt5ONM",
   authDomain: "bosco-connect-2025.firebaseapp.com",
   databaseURL: "https://bosco-connect-2025-default-rtdb.firebaseio.com",
@@ -12,6 +19,12 @@ const FIREBASE_CONFIG = {
   messagingSenderId: "129408114967",
   appId: "1:129408114967:web:a1052bb96917f10441d752",
   measurementId: "G-E2HJVS7Q6T"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
   
 // Initialize Firebase
 if (!firebase.apps.length) {
