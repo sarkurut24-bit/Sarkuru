@@ -4,15 +4,15 @@
 // Get these from: https://console.firebase.google.com/
 
 const FIREBASE_CONFIG = {
-  apiKey: "YOUR_API_KEY_HERE",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
-};
-
+  apiKey: "AIzaSyA36BIWpgVHavKSI-ecg83Md36AuJt5ONM",
+  authDomain: "bosco-connect-2025.firebaseapp.com",
+  databaseURL: "https://bosco-connect-2025-default-rtdb.firebaseio.com",
+  projectId: "bosco-connect-2025",
+  storageBucket: "bosco-connect-2025.firebasestorage.app",
+  messagingSenderId: "129408114967",
+  appId: "1:129408114967:web:a1052bb96917f10441d752",
+  measurementId: "G-E2HJVS7Q6T"
+  
 // Initialize Firebase
 if (!firebase.apps.length) {
   firebase.initializeApp(FIREBASE_CONFIG);
