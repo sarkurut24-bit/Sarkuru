@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed - BoscoConnect 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-red: #C41E3A;
+            --secondary-gold: #FFD700;
+            --dark-grey: #2C3E50;
+            --light-grey: #ECF0F1;
+            --accent-orange: #FF8C00;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            color: #1a1a1a;
+        }
+        .feed-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+        .feed-header {
+            background: linear-gradient(135deg, var(--primary-red), #A01029);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .feed-header-back { font-size: 24px; cursor: pointer; }
+        .feed-header-title { flex: 1; font-size: 18px; font-weight: 700; }
+        .feed-header-icon { font-size: 20px; cursor: pointer; }
+        .feed-post {
+            border-bottom: 1px solid var(--light-grey);
+            padding: 15px 0;
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 15px;
+            margin-bottom: 12px;
+        }
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-red), var(--accent-orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .post-author {
+            flex: 1;
+        }
+        .post-author-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+        .post-author-time {
+            font-size: 12px;
+            color: #999;
+        }
+        .post-menu {
+            font-size: 20px;
+            cursor: pointer;
+            color: #999;
+        }
+        .post-image {
+            width: 100%;
+            background: #f0f0f0;
+            aspect-ratio: 1;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+        .post-actions {
+            display: flex;
+            gap: 15px;
+            padding: 0 15px;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        .post-action {
+            cursor: pointer;
+            color: #666;
+            transition: all 0.2s ease;
+        }
+        .post-action:hover {
+            color: var(--primary-red);
+            transform: scale(1.1);
+        }
+        .post-action.liked {
+            color: var(--primary-red);
+        }
+        .post-stats {
+            padding: 0 15px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .post-caption {
+            padding: 0 15px;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            word-break: break-word;
+        }
+        .post-caption strong {
+            color: var(--primary-red);
+        }
+        .post-comments-link {
+            padding: 0 15px;
+            font-size: 12px;
+            color: #999;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+        .post-input {
+            padding: 0 15px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border-top: 1px solid var(--light-grey);
+            padding-top: 12px;
+        }
+        .post-input-avatar {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--primary-red), var(--accent-orange));
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .post-input input {
+            flex: 1;
+            border: none;
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 20px;
+            outline: none;
+        }
+        .post-input button {
+            background: none;
+            border: none;
+            color: var(--primary-red);
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .create-post-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--primary-red), #A01029);
+            color: white;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.3);
+            transition: all 0.3s ease;
+            z-index: 50;
+        }
+        .create-post-btn:hover {
+            transform: scale(1.1);
+        }
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="feed-container">
+        <div class="feed-header">
+            <div class="feed-header-back" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="feed-header-title">Feed</div>
+            <div class="feed-header-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+        </div>
+
+        <div id="feedContainer" class="loading">
+            <div style="width: 30px; height: 30px; border: 3px solid rgba(196, 30, 58, 0.2); border-top-color: var(--primary-red); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 15px;"></div>
+            <p>Loading feed...</p>
+        </div>
+    </div>
+
+    <button class="create-post-btn" onclick="openCreatePost()">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+    <script src="config/firebase-config.js"></script>
+
+    <script>
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadFeed();
+        });
+
+        function checkAuth() {
+            auth.onAuthStateChanged((user) => {
+                if (!user) {
+                    window.location.href = 'index.html';
+                } else {
+                    currentUser = user;
+                }
+            });
+        }
+
+        function loadFeed() {
+            const feedContainer = document.getElementById('feedContainer');
+            feedContainer.innerHTML = '';
+
+            db.ref('feed').limitToLast(20).on('child_added', (snapshot) => {
+                const post = snapshot.val();
+                const postId = snapshot.key;
+                displayPost(post, postId);
+            });
+        }
+
+        function displayPost(post, postId) {
+            const feedContainer = document.getElementById('feedContainer');
+            const time = new Date(post.timestamp).toLocaleDateString();
+            const initials = post.displayName.split(' ').map(n => n[0]).join('').toUpperCase();
+            const likeCount = Object.keys(post.likes || {}).length;
+            const isLiked = currentUser && post.likes && post.likes[currentUser.uid];
+
+            const postDiv = document.createElement('div');
+            postDiv.className = 'feed-post';
+            postDiv.innerHTML = `
+                <div class="post-header">
+                    <div class="post-avatar">${initials}</div>
+                    <div class="post-author">
+                        <div class="post-author-name">${post.displayName}</div>
+                        <div class="post-author-time">${time}</div>
+                    </div>
+                    <div class="post-menu"><i class="fas fa-ellipsis-v"></i></div>
+                </div>
+                
+                <img src="${post.imageUrl}" alt="Post" class="post-image" onerror="this.src='/assets/images/placeholder.jpg'">
+                
+                <div class="post-actions">
+                    <div class="post-action ${isLiked ? 'liked' : ''}" onclick="toggleLike('${postId}')">
+                        <i class="fas ${isLiked ? 'fa-heart' : 'fa-heart'}" style="color: ${isLiked ? 'var(--primary-red)' : '#999'}"></i>
+                    </div>
+                    <div class="post-action">
+                        <i class="fas fa-comment"></i>
+                    </div>
+                    <div class="post-action">
+                        <i class="fas fa-share"></i>
+                    </div>
+                </div>
+                
+                <div class="post-stats">${likeCount} likes</div>
+                
+                <div class="post-caption">
+                    <strong>${post.displayName}</strong> ${post.caption}
+                </div>
+                
+                <div class="post-comments-link">View all comments</div>
+            `;
+
+            feedContainer.appendChild(postDiv);
+        }
+
+        async function toggleLike(postId) {
+            try {
+                await togglePostLike(postId, true);
+                loadFeed();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function openCreatePost() {
+            alert('Create post feature coming soon!');
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `@keyframes spin { to { transform: rotate(360deg); } }`;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

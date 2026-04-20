@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BoscoConnect 2025 - Exclusive app for Class of 2026, Don Bosco HSS Diphu">
+    <meta name="theme-color" content="#C41E3A">
+    
+    <title>BoscoConnect 2025 - The Bosconian Hub</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #C41E3A;
+            --secondary-gold: #FFD700;
+            --dark-grey: #2C3E50;
+            --light-grey: #ECF0F1;
+            --accent-orange: #FF8C00;
+            --success-green: #27AE60;
+            --error-red: #E74C3C;
+            --text-dark: #1a1a1a;
+            --text-light: #666666;
+            --border-color: #dddddd;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Login Page Background */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23C41E3A" width="1200" height="800"/></svg>');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: blur(8px) brightness(0.6);
+            z-index: -1;
+        }
+
+        /* School Gate Image - Will be replaced with actual image */
+        .gate-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(196, 30, 58, 0.5), rgba(255, 215, 0, 0.2)),
+                        url('assets/images/school-gate.jpg') center/cover no-repeat;
+            filter: blur(10px) brightness(0.65);
+            z-index: -1;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 35px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.6s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, var(--primary-red), var(--accent-orange));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(196, 30, 58, 0.3);
+        }
+
+        .app-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary-red);
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .app-subtitle {
+            font-size: 13px;
+            color: var(--text-light);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .school-name {
+            font-size: 12px;
+            color: var(--secondary-gold);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .login-form {
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-grey);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #bbb;
+        }
+
+        .phone-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .country-code {
+            width: 80px;
+            padding: 12px 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: #f8f9fa;
+            font-weight: 600;
+            color: var(--dark-grey);
+            text-align: center;
+        }
+
+        .phone-input-group .form-input {
+            flex: 1;
+        }
+
+        .send-otp-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary-red), #A01029);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .send-otp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(196, 30, 58, 0.4);
+        }
+
+        .send-otp-btn:active {
+            transform: translateY(0);
+        }
+
+        .send-otp-btn.loading {
+            opacity: 0.8;
+            cursor: not-allowed;
+        }
+
+        .otp-section {
+            display: none;
+            margin-top: 20px;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        .otp-section.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .otp-input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: #f8f9fa;
+            transition: all 0.2s ease;
+        }
+
+        .otp-input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background: white;
+            transform: scale(1.05);
+        }
+
+        .verify-otp-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--success-green);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .verify-otp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.4);
+        }
+
+        .resend-otp {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .resend-otp a {
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .resend-otp a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            display: none;
+            padding: 12px;
+            background: #FADBD8;
+            border-left: 4px solid var(--error-red);
+            border-radius: 6px;
+            color: #C0392B;
+            font-size: 13px;
+            margin-bottom: 15px;
+            animation: shake 0.5s ease-out;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .success-message {
+            display: none;
+            padding: 12px;
+            background: #D5F4E6;
+            border-left: 4px solid var(--success-green);
+            border-radius: 6px;
+            color: #1E8449;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: var(--border-color);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .divider span {
+            margin: 0 10px;
+            color: var(--text-light);
+        }
+
+        .guest-login {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .guest-login p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .guest-btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .guest-btn:hover {
+            background: rgba(196, 30, 58, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .batch-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary-gold), #FFC700);
+            color: #333;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            .login-box {
+                margin: 20px;
+                padding: 30px 20px;
+                max-width: none;
+            }
+
+            .app-title {
+                font-size: 24px;
+            }
+
+            .logo-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 35px;
+            }
+
+            .otp-input {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background with School Gate Image -->
+    <div class="login-container">
+        <div class="gate-image"></div>
+
+        <!-- Login Form -->
+        <div class="login-box">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h1 class="app-title">BoscoConnect</h1>
+                <p class="app-subtitle">Class of 2026</p>
+                <p class="school-name">Don Bosco HSS, Diphu</p>
+                <span class="batch-badge">🏆 Batch of '26</span>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+
+            <form class="login-form" id="loginForm">
+                <!-- Phone Number Input -->
+                <div id="phoneSection">
+                    <div class="form-group">
+                        <label class="form-label" for="countryCode">Country Code</label>
+                        <div class="phone-input-group">
+                            <input type="text" class="country-code" id="countryCode" value="+91" disabled>
+                            <input 
+                                type="tel" 
+                                class="form-input" 
+                                id="phoneNumber" 
+                                placeholder="Enter your phone number"
+                                pattern="[0-9]{10}"
+                                required
+                            >
+                        </div>
+                        <small style="color: var(--text-light); margin-top: 5px; display: block; font-size: 12px;">
+                            10-digit mobile number (without country code)
+                        </small>
+                    </div>
+
+                    <button type="button" class="send-otp-btn" id="sendOtpBtn">
+                        <i class="fas fa-paper-plane"></i> Send OTP
+                    </button>
+                </div>
+
+                <!-- OTP Input Section -->
+                <div id="otpSection" class="otp-section">
+                    <div class="form-group">
+                        <label class="form-label">Enter 6-Digit OTP</label>
+                        <div class="otp-input-group" id="otpInputGroup">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                        </div>
+                    </div>
+
+                    <button type="button" class="verify-otp-btn" id="verifyOtpBtn">
+                        <i class="fas fa-check-circle"></i> Verify OTP
+                    </button>
+
+                    <div class="resend-otp">
+                        Didn't receive OTP? <a id="resendOtpLink">Resend (<span id="resendTimer">30</span>s)</a>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Divider -->
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <!-- Guest Login -->
+            <div class="guest-login">
+                <p>Explore as guest</p>
+                <button type="button" class="guest-btn" id="guestBtn">
+                    <i class="fas fa-eye"></i> Browse Features
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js"></script>
+
+    <!-- Authentication Script -->
+    <script>
+        // Firebase Configuration (REPLACE WITH YOUR CONFIG)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "your-app.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project-id.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+
+        // DOM Elements
+        const phoneInput = document.getElementById('phoneNumber');
+        const sendOtpBtn = document.getElementById('sendOtpBtn');
+        const otpSection = document.getElementById('otpSection');
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+        const resendOtpLink = document.getElementById('resendOtpLink');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const guestBtn = document.getElementById('guestBtn');
+
+        let verificationId = null;
+        let resendTimeLeft = 30;
+
+        // Show Error Message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('show');
+            setTimeout(() => errorMessage.classList.remove('show'), 4000);
+        }
+
+        // Show Success Message
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.classList.add('show');
+            setTimeout(() => successMessage.classList.remove('show'), 3000);
+        }
+
+        // Format Phone Number
+        function formatPhoneNumber(number) {
+            return number.replace(/\D/g, '').slice(-10);
+        }
+
+        // Send OTP
+        sendOtpBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            const phoneNumber = formatPhoneNumber(phoneInput.value);
+            
+            if (phoneNumber.length !== 10) {
+                showError('❌ Please enter a valid 10-digit phone number');
+                return;
+            }
+
+            sendOtpBtn.disabled = true;
+            sendOtpBtn.innerHTML = '<div class="loading-spinner"></div> Sending...';
+
+            try {
+                const fullPhoneNumber = '+91' + phoneNumber;
+                
+                // Create application verifier (reCAPTCHA)
+                const appVerifier = new firebase.auth.RecaptchaVerifier('sendOtpBtn', {
+                    'size': 'invisible',
+                    'callback': (response) => {}
+                });
+
+                // Send sign-in code
+                const confirmationResult = await auth.signInWithPhoneNumber(fullPhoneNumber, appVerifier);
+                verificationId = confirmationResult.verificationId;
+
+                showSuccess('✅ OTP sent successfully!');
+                otpSection.classList.add('show');
+                startResendTimer();
+
+            } catch (error) {
+                console.error('Error:', error);
+                showError('❌ Failed to send OTP: ' + error.message);
+            } finally {
+                sendOtpBtn.disabled = false;
+                sendOtpBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send OTP';
+            }
+        });
+
+        // OTP Input Auto-Focus
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Verify OTP
+        verifyOtpBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+
+            if (otp.length !== 6) {
+                showError('❌ Please enter complete 6-digit OTP');
+                return;
+            }
+
+            verifyOtpBtn.disabled = true;
+            verifyOtpBtn.innerHTML = '<div class="loading-spinner"></div> Verifying...';
+
+            try {
+                const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, otp);
+                const result = await auth.signInWithCredential(credential);
+                
+                // Save user data
+                await db.ref('users/' + result.user.uid).set({
+                    phoneNumber: result.user.phoneNumber,
+                    uid: result.user.uid,
+                    joinedAt: new Date().toISOString(),
+                    batch: '2026',
+                    badge: 'Batch of \'26'
+                }, { merge: true });
+
+                showSuccess('✅ Login successful! Redirecting...');
+                localStorage.setItem('bosconian_user', result.user.uid);
+                
+                setTimeout(() => {
+                    window.location.href = 'app.html';
+                }, 1500);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showError('❌ Invalid OTP. Please try again.');
+            } finally {
+                verifyOtpBtn.disabled = false;
+                verifyOtpBtn.innerHTML = '<i class="fas fa-check-circle"></i> Verify OTP';
+            }
+        });
+
+        // Resend Timer
+        function startResendTimer() {
+            resendTimeLeft = 30;
+            resendOtpLink.style.pointerEvents = 'none';
+            resendOtpLink.style.opacity = '0.5';
+
+            const timer = setInterval(() => {
+                resendTimeLeft--;
+                document.getElementById('resendTimer').textContent = resendTimeLeft;
+
+                if (resendTimeLeft === 0) {
+                    clearInterval(timer);
+                    resendOtpLink.style.pointerEvents = 'auto';
+                    resendOtpLink.style.opacity = '1';
+                }
+            }, 1000);
+        }
+
+        // Resend OTP
+        resendOtpLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (resendTimeLeft === 0) {
+                sendOtpBtn.click();
+            }
+        });
+
+        // Guest Login
+        guestBtn.addEventListener('click', () => {
+            localStorage.setItem('bosconian_guest', 'true');
+            window.location.href = 'app.html';
+        });
+
+        // Check if already logged in
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                window.location.href = 'app.html';
+            }
+        });
+    </script>
+</body>
+</html>

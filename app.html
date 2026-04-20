@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#C41E3A">
+    <title>BoscoConnect 2025 - Dashboard</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #C41E3A;
+            --secondary-gold: #FFD700;
+            --dark-grey: #2C3E50;
+            --light-grey: #ECF0F1;
+            --accent-orange: #FF8C00;
+            --success-green: #27AE60;
+            --text-dark: #1a1a1a;
+            --text-light: #666666;
+            --border-color: #dddddd;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            color: var(--text-dark);
+        }
+
+        /* Layout */
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: 100vh;
+            background: #fff;
+        }
+
+        /* Header */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary-red), #A01029);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .header-status {
+            font-size: 12px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .notification-icon {
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background: var(--accent-orange);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .profile-avatar:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+
+        /* Main Content */
+        .app-content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--light-grey);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(196, 30, 58, 0.2);
+            border-color: var(--primary-red);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary-red);
+            margin-bottom: 12px;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .feature-description {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            background: rgba(196, 30, 58, 0.1);
+            color: var(--primary-red);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary-red), #A01029);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--secondary-gold);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--light-grey);
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 50;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 20px;
+            border: none;
+            background: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-item.active {
+            color: var(--primary-red);
+            background: rgba(196, 30, 58, 0.05);
+        }
+
+        .nav-label {
+            font-size: 10px;
+            margin-top: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* Content Area with Nav Padding */
+        .app-content {
+            padding-bottom: 80px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-red);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .app-header {
+                padding: 15px;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            flex-direction: column;
+            gap: 15px;
+            color: var(--text-light);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(196, 30, 58, 0.2);
+            border-top-color: var(--primary-red);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="app-header">
+            <div class="header-left">
+                <div class="header-logo">Bosco<span style="color: var(--secondary-gold);">Connect</span></div>
+                <div class="header-status">Class of '26</div>
+            </div>
+            <div class="header-right">
+                <div class="notification-icon" id="notificationIcon">
+                    <i class="fas fa-bell"></i>
+                    <div class="notification-badge" id="notificationBadge" style="display: none;">0</div>
+                </div>
+                <div class="profile-avatar" id="profileAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="app-content">
+            <!-- Welcome Section -->
+            <div style="margin-bottom: 30px;">
+                <h2 style="color: var(--primary-red); font-size: 24px; margin-bottom: 5px;">Welcome, Bosconian! 👋</h2>
+                <p style="color: var(--text-light); font-size: 14px;">Exclusive hub for Batch of 2026</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalMembers">0</div>
+                    <div class="stat-label">Batch Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalMessages">0</div>
+                    <div class="stat-label">Messages</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalMemories">0</div>
+                    <div class="stat-label">Memories</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="activeFriends">0</div>
+                    <div class="stat-label">Online Now</div>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <h3 style="color: var(--text-dark); font-size: 18px; font-weight: 700; margin-bottom: 15px;">Core Features</h3>
+            <div class="features-grid">
+                <!-- Global Chat -->
+                <div class="feature-card" onclick="openFeature('chat')">
+                    <div class="feature-icon">💬</div>
+                    <div class="feature-title">Global Batch Chat</div>
+                    <div class="feature-description">Talk to your entire batch in one unified chat. Permanent history, no deletion!</div>
+                    <div class="feature-badge">Live Chat</div>
+                </div>
+
+                <!-- Memories Vault -->
+                <div class="feature-card" onclick="openFeature('memories')">
+                    <div class="feature-icon">📸</div>
+                    <div class="feature-title">Memories Vault</div>
+                    <div class="feature-description">Share and explore school events, trips, and class moments in a beautiful gallery.</div>
+                    <div class="feature-badge">Photo Gallery</div>
+                </div>
+
+                <!-- Feed -->
+                <div class="feature-card" onclick="openFeature('feed')">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">Instagram-Style Feed</div>
+                    <div class="feature-description">Post updates, like, and comment on your friends' photos. Real-time interactions!</div>
+                    <div class="feature-badge">Social Feed</div>
+                </div>
+
+                <!-- Stories -->
+                <div class="feature-card" onclick="openFeature('stories')">
+                    <div class="feature-icon">✨</div>
+                    <div class="feature-title">24-Hour Stories</div>
+                    <div class="feature-description">Quick updates that disappear after 24 hours. Perfect for daily moments!</div>
+                    <div class="feature-badge">Ephemeral</div>
+                </div>
+
+                <!-- DMs -->
+                <div class="feature-card" onclick="openFeature('dm')">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-title">Private DMs</div>
+                    <div class="feature-description">Secure one-on-one messaging with your batchmates. Keep conversations private.</div>
+                    <div class="feature-badge">Encrypted</div>
+                </div>
+
+                <!-- Profile -->
+                <div class="feature-card" onclick="openFeature('profile')">
+                    <div class="feature-icon">👤</div>
+                    <div class="feature-title">Your Profile</div>
+                    <div class="feature-description">Customize your profile, manage badges, and view your activity history.</div>
+                    <div class="feature-badge">Personalized</div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--light-grey);">
+                <h3 style="color: var(--text-dark); font-size: 18px; font-weight: 700; margin-bottom: 15px;">Recent Activity</h3>
+                <div id="recentActivity" class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading activity...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <button class="nav-item active" onclick="switchPage('home')">
+                <i class="fas fa-home"></i>
+                <span class="nav-label">Home</span>
+            </button>
+            <button class="nav-item" onclick="switchPage('chat')">
+                <i class="fas fa-comments"></i>
+                <span class="nav-label">Chat</span>
+            </button>
+            <button class="nav-item" onclick="switchPage('feed')">
+                <i class="fas fa-images"></i>
+                <span class="nav-label">Feed</span>
+            </button>
+            <button class="nav-item" onclick="switchPage('dm')">
+                <i class="fas fa-envelope"></i>
+                <span class="nav-label">Messages</span>
+            </button>
+            <button class="nav-item" onclick="switchPage('profile')">
+                <i class="fas fa-user-circle"></i>
+                <span class="nav-label">Profile</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="featureModal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span id="modalTitle">Feature</span>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+
+    <script>
+        // Firebase Config (REPLACE WITH YOUR CONFIG)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "your-app.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project-id.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+
+        // Page Navigation
+        function switchPage(page) {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            event.target.closest('.nav-item').classList.add('active');
+
+            switch(page) {
+                case 'home':
+                    window.location.href = '#home';
+                    break;
+                case 'chat':
+                    window.location.href = 'chat.html';
+                    break;
+                case 'feed':
+                    window.location.href = 'feed.html';
+                    break;
+                case 'dm':
+                    window.location.href = 'dm.html';
+                    break;
+                case 'profile':
+                    window.location.href = 'profile.html';
+                    break;
+            }
+        }
+
+        // Open Feature Modal
+        function openFeature(feature) {
+            const modal = document.getElementById('featureModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+
+            const features = {
+                chat: {
+                    title: '💬 Global Batch Chat',
+                    body: '<p>This is where your entire batch can talk together!</p><p><strong>Features:</strong></p><ul><li>Permanent message history (no deletion)</li><li>Real-time updates</li><li>Pinned important messages</li><li>Search functionality</li></ul><button onclick="window.location.href=\'chat.html\'" style="width:100%;padding:12px;background:#C41E3A;color:white;border:none;border-radius:8px;font-weight:600;margin-top:15px;cursor:pointer;">Open Chat →</button>'
+                },
+                memories: {
+                    title: '📸 Memories Vault',
+                    body: '<p>Create a digital scrapbook of your school memories!</p><p><strong>Features:</strong></p><ul><li>Pinterest-style photo grid</li><li>Upload from events & trips</li><li>Collaborative gallery</li><li>Download & share</li></ul><button onclick="window.location.href=\'memories.html\'" style="width:100%;padding:12px;background:#C41E3A;color:white;border:none;border-radius:8px;font-weight:600;margin-top:15px;cursor:pointer;">Explore Gallery →</button>'
+                },
+                feed: {
+                    title: '📱 Instagram-Style Feed',
+                    body: '<p>Share your daily moments with the batch!</p><p><strong>Features:</strong></p><ul><li>Photo posts with captions</li><li>Like & comment system</li><li>Follow your friends</li><li>Real-time notifications</li></ul><button onclick="window.location.href=\'feed.html\'" style="width:100%;padding:12px;background:#C41E3A;color:white;border:none;border-radius:8px;font-weight:600;margin-top:15px;cursor:pointer;">View Feed →</button>'
+                },
+                stories: {
+                    title: '✨ 24-Hour Stories',
+                    body: '<p>Quick, temporary updates that disappear after 24 hours!</p><p><strong>Features:</strong></p><ul><li>Auto-disappear after 24h</li><li>View who saw your story</li><li>Add text & stickers</li><li>Multiple story posting</li></ul><button onclick="window.location.href=\'stories.html\'" style="width:100%;padding:12px;background:#C41E3A;color:white;border:none;border-radius:8px;font-weight:600;margin-top:15px;cursor:pointer;">View Stories →</button>'
+                },
+                dm: {
+                    title: '🔒 Private DMs',
+                    body: '<p>Have private conversations with your batchmates!</p><p><strong>Features:</strong></p><ul><li>End-to-end encrypted</li><li>One-on-one messaging</li><li>See online status</li><li>Read receipts</li></ul><button onclick="window.location.href=\'dm.html\'" style="width:100%;padding:12px;background:#C41E3A;color:white;border:none;border-radius:8px;font-weight:600;margin-top:15px;cursor:pointer;">Open Messages →</button>'
+                },
+                profile: {
+                    title: '👤 Your Profile',
+                    body: '<p>Manage your profile and customize your presence!</p><p><strong>Features:</strong></p><ul><li>Profile picture & bio</li><li>View your Batch of \'26 badge</li><li>Activity history</li><li>Privacy settings</li></ul><button onclick="window.location.href=\'profile.html\'" style="width:100%;padding:12px;background:#C41E3A;color:white;border:none;border-radius:8px;font-weight:600;margin-top:15px;cursor:pointer;">Go to Profile →</button>'
+                }
+            };
+
+            const feature = features[feature];
+            modalTitle.textContent = feature.title;
+            modalBody.innerHTML = feature.body;
+            modal.classList.add('show');
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('featureModal').classList.remove('show');
+        }
+
+        // Load Stats
+        function loadStats() {
+            db.ref('stats').once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    const stats = snapshot.val();
+                    document.getElementById('totalMembers').textContent = stats.members || '0';
+                    document.getElementById('totalMessages').textContent = stats.messages || '0';
+                    document.getElementById('totalMemories').textContent = stats.memories || '0';
+                    document.getElementById('activeFriends').textContent = stats.online || '0';
+                }
+            });
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadStats();
+            // Refresh stats every 30 seconds
+            setInterval(loadStats, 30000);
+        });
+
+        // Profile Menu
+        document.getElementById('profileAvatar').addEventListener('click', () => {
+            alert('Profile & Settings coming soon!');
+        });
+    </script>
+</body>
+</html>

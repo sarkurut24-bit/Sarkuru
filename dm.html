@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - BoscoConnect 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary-red: #C41E3A; }
+        body { font-family: 'Inter', sans-serif; background: #f8f9fa; }
+        .dm-container {
+            max-width: 100%;
+            min-height: 100vh;
+            background: white;
+        }
+        .dm-header {
+            background: linear-gradient(135deg, var(--primary-red), #A01029);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .conversation-list {
+            padding: 0;
+        }
+        .conversation-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .conversation-item:hover {
+            background: #f8f9fa;
+        }
+        .conv-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-red), #FF8C00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .conv-info {
+            flex: 1;
+        }
+        .conv-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .conv-last-message {
+            font-size: 12px;
+            color: #999;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="dm-container">
+        <div class="dm-header">
+            <div style="font-size: 24px; cursor: pointer;" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div style="flex: 1; font-size: 18px; font-weight: 700;">Messages</div>
+        </div>
+
+        <div id="conversationList" class="loading">
+            <div style="width: 30px; height: 30px; border: 3px solid rgba(196, 30, 58, 0.2); border-top-color: var(--primary-red); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 15px;"></div>
+            <p>Loading conversations...</p>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+    <script src="config/firebase-config.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadConversations();
+        });
+
+        function loadConversations() {
+            const convList = document.getElementById('conversationList');
+            convList.innerHTML = '<div class="loading"><p>💬 Private 1-on-1 messaging coming soon!</p></div>';
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `@keyframes spin { to { transform: rotate(360deg); } }`;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

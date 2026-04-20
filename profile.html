@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - BoscoConnect 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary-red: #C41E3A; --secondary-gold: #FFD700; }
+        body { font-family: 'Inter', sans-serif; background: #f8f9fa; }
+        .profile-container { max-width: 500px; margin: 0 auto; background: white; min-height: 100vh; }
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-red), #A01029);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .profile-section {
+            text-align: center;
+            padding: 30px 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .profile-avatar-large {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-red), #FF8C00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            margin: 0 auto 15px;
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.3);
+        }
+        .profile-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .profile-batch-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary-gold), #FFC700);
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+        }
+        .menu-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .menu-item:hover {
+            background: #f8f9fa;
+        }
+        .menu-icon {
+            font-size: 20px;
+            color: var(--primary-red);
+            width: 40px;
+        }
+        .menu-content {
+            flex: 1;
+        }
+        .menu-title {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .menu-subtitle {
+            font-size: 12px;
+            color: #999;
+            margin-top: 3px;
+        }
+        .logout-btn {
+            width: calc(100% - 40px);
+            margin: 20px;
+            padding: 14px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .logout-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div style="font-size: 24px; cursor: pointer;" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div style="flex: 1; font-size: 18px; font-weight: 700;">Profile</div>
+            <div style="font-size: 20px; cursor: pointer;">
+                <i class="fas fa-cog"></i>
+            </div>
+        </div>
+
+        <div class="profile-section">
+            <div class="profile-avatar-large">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-name" id="profileName">Bosconian</div>
+            <div style="color: #999; font-size: 13px; margin-top: 5px;" id="profilePhone">+91 XXXXXXXXXX</div>
+            <div class="profile-batch-badge">🏆 Batch of '26</div>
+        </div>
+
+        <div>
+            <div class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">Edit Profile</div>
+                    <div class="menu-subtitle">Update your details</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">Saved Posts</div>
+                    <div class="menu-subtitle">Your bookmarks</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">Notifications</div>
+                    <div class="menu-subtitle">Alert settings</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">Privacy</div>
+                    <div class="menu-subtitle">Security settings</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="menu-content">
+                    <div class="menu-title">Help & Support</div>
+                    <div class="menu-subtitle">FAQ & contact</div>
+                </div>
+            </div>
+
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+    <script src="config/firebase-config.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProfile();
+        });
+
+        async function loadProfile() {
+            try {
+                const user = await getCurrentUser();
+                const profile = await getUserProfile(user.uid);
+                
+                document.getElementById('profileName').textContent = profile.displayName || 'Bosconian';
+                document.getElementById('profilePhone').textContent = user.phoneNumber || '+91 XXXXXXXXXX';
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                await logoutUser();
+            }
+        }
+    </script>
+</body>
+</html>
